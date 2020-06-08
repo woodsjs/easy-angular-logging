@@ -51,7 +51,7 @@
   <!-- form -->
   <form [formGroup]="workingLoggedForm" (submit)="successfulSubmit()">
     <label for="working"
-      >Working Input
+      >Working Input Logged
       <mat-form-field id="working" appearance="outline">
         <input matInput formControlName="workingField" />
       </mat-form-field>
@@ -62,7 +62,7 @@
   <!-- broken form -->
   <form [formGroup]="brokenLoggedForm" (submit)="brokenSubmit()">
     <label for="broken"
-      >Required Input
+      >Required Input Warning
       <mat-form-field id="broken" appearance="outline">
         <input matInput formControlName="brokenField" />
       </mat-form-field>
@@ -73,7 +73,7 @@
   <!-- broken form -->
   <form [formGroup]="dnsErrorForm" (submit)="throwDNSError()">
     <label for="dnsError"
-      >Throws DNS Error
+      >Throws Non-fatal DNS Error
       <mat-form-field id="dnsError" appearance="outline">
         <input matInput formControlName="dnsErrorField" />
       </mat-form-field>
@@ -82,9 +82,9 @@
   </form>
 
   <!-- broken form -->
-  <form [formGroup]="throwErrorForm" (submit)="throwsError()">
+  <form [formGroup]="throwErrorForm" (submit)="throwsFatalError()">
     <label for="errorInput"
-      >Throws Error
+      >Throws Fatal Error
       <mat-form-field id="errorInput" appearance="outline">
         <input matInput formControlName="thisField" />
       </mat-form-field>
