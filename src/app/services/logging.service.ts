@@ -1,15 +1,25 @@
 import { Injectable } from '@angular/core';
-import { NGXLogger, NGXLoggerMonitor, NGXLogInterface } from 'ngx-logger';
+import { NGXLogger, NGXLoggerMonitor, NGXLogInterface, NgxLoggerLevel } from 'ngx-logger';
+import { AppConfigService } from './app-config.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LoggingService {
+
+  env: string;
+  canDebug: boolean;
+
   constructor(private logger: NGXLogger) {
-    // this.logger.registerMonitor(new MyLoggerMonitor());
     // TRACE|DEBUG|INFO|LOG|WARN|ERROR|FATAL|OFF
-    // this.logger.trace('A trace level log');
-    // this.logger.fatal('A fatal level log');
+    this.env = AppConfigService.settings.env.name;
+    this.canDebug = AppConfigService.settings.logging.debug;
+    console.log('This environment ', this.env, ' debugging enabled ', this.canDebug);
+
+    if ( this.canDebug ) {
+      console.log('Dropping into debug mode');
+      this.logger.updateConfig({ level: NgxLoggerLevel.TRACE });
+    }
   }
 
   // very detailed tracing

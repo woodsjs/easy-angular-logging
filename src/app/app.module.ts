@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, APP_INITIALIZER } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -13,12 +13,17 @@ import {
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoggingService } from './services/logging.service';
+import { AppConfigService } from './services/app-config.service';
 
 // NullInjectorError: StaticInjectorError(AppModule)[NGXLogger -> LoggerConfig]
 import { LoggerModule, NgxLoggerLevel, LoggerConfig } from 'ngx-logger';
 
 // NullInjectorError: StaticInjectorError(AppModule)[NGXLoggerHttpService -> HttpBackend]:
 import { HttpClientModule } from '@angular/common/http';
+
+export function initializeApp(appConfig: AppConfigService) {
+  return () => appConfig.load();
+}
 
 @NgModule({
   declarations: [AppComponent],
@@ -33,12 +38,20 @@ import { HttpClientModule } from '@angular/common/http';
     MatButtonModule,
     HttpClientModule,
     LoggerModule.forRoot({
-      level: NgxLoggerLevel.TRACE,
-      serverLogLevel: NgxLoggerLevel.TRACE,
+      level: NgxLoggerLevel.INFO,
+      serverLogLevel: NgxLoggerLevel.INFO,
     }),
   ],
 
-  providers: [],
+  providers: [
+    AppConfigService,
+    {
+      provide: APP_INITIALIZER,
+      useFactory: initializeApp,
+      deps: [AppConfigService],
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

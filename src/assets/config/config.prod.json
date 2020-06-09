@@ -1,0 +1,9 @@
+{
+
+  "env": {
+    "name": "PROD"
+  },
+  "logging": {
+    "debug": false
+  }
+}

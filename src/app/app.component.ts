@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { LoggingService } from './services/logging.service';
+import { AppConfigService } from './services/app-config.service';
 
 @Component({
   selector: 'app-root',
@@ -14,6 +15,9 @@ export class AppComponent implements OnInit {
   brokenLoggedForm: FormGroup;
   throwErrorForm: FormGroup;
   dnsErrorForm: FormGroup;
+
+  env: string;
+  canDebug: boolean;
 
   // constructor(private fb: FormBuilder, private ws: LoggingService) {}
   constructor(private fb: FormBuilder, private ls: LoggingService) {}
@@ -42,6 +46,9 @@ export class AppComponent implements OnInit {
     this.ls.sendDebugLevelMessage('ngOnInit message', this, {
       error: 'none',
     });
+
+    this.env = AppConfigService.settings.env.name;
+    this.canDebug = AppConfigService.settings.logging.debug;
   }
 
   successfulSubmit() {
