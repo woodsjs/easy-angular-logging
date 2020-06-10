@@ -12,7 +12,6 @@ import {
 } from '@angular/material';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { LoggingService } from './services/logging.service';
 import { AppConfigService } from './services/app-config.service';
 
 // NullInjectorError: StaticInjectorError(AppModule)[NGXLogger -> LoggerConfig]
